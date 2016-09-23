@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Board</title>
+</head>
+
+<body>
+    <table id="board" cellspacing=1 width="80%" align=center border=1>
+        <tr>
+            <td width="10%"><p align=center>number</p></td>
+            <td width="60"><p align=center>subject</p></td>
+            <td width="15"><p align=center>create date</p></td>
+            <td width="15"><p align=center>modify date</p></td>
+        </tr>
+
+        {% for post in posts %}
+            <tr>
+                <td width="10%"><p align=center>{{ post.id }}</p></td>
+                <td width="60%"><p align=center><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></p></td>
+                <td width="15%"><p align=center>{{ post.create_date|date:"Y.N.d" }}</p></td>
+                <td width="15%"><p align=center>{{ post.modify_date|date:"Y N d" }}</p></td>
+            </tr>
+        {% endfor %}
+
+<br/>
+
+        <div>
+            <span>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+                {% endif %}
+
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+                {% endif %}
+            </span>
+        </div>
+</body>
+</html>
